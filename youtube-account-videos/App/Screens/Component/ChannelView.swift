@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct ChannelView: View {
-    @State var dataModel: DataModel
+    @State var viewModel: ViewModel
     
     var body: some View {
         NavigationStack {
             VStack {
-                ChannelStack(channelData: dataModel.channelData)
+                ChannelStack(channelData: viewModel.channelData)
                 
                 Spacer()
                     .frame(height: 75)
                 
-                SearchStack(dataModel: dataModel)
+                SearchStack(viewModel: viewModel)
                 
             }.navigationTitle("🧑‍💻 Channel")
-            .alert(dataModel.alertData[0], isPresented: $dataModel.showingSearchAlert, presenting: dataModel.alertData[1]) { _ in
+            .alert(viewModel.alertData[0], isPresented: $viewModel.showingSearchAlert, presenting: viewModel.alertData[1]) { _ in
                 Button {} label: {
                     Text("OK")
                 }
@@ -48,16 +48,16 @@ struct ChannelStack: View {
 }
 
 struct SearchStack: View {
-    @State var dataModel: DataModel
+    @State var viewModel: ViewModel
     
     var body: some View {
-        TextField("Input Channel ID...", text: $dataModel.currentChannel)
+        TextField("Input Channel ID...", text: $viewModel.currentChannel)
             .frame(width: 240, height: 30)
             .padding(.horizontal, 10)
             .border(Color(.secondaryLabel))
         
         Button {
-            dataModel.listVideos()
+            viewModel.listVideos()
         } label: {
             Text("Load Videos")
         }.padding(.top, 15)
@@ -65,5 +65,5 @@ struct SearchStack: View {
 }
 
 #Preview {
-    ChannelView(dataModel: DataModel())
+    ChannelView(viewModel: ViewModel())
 }

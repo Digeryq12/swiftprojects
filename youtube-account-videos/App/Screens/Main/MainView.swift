@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct MainView: View {
-    @State var dataModel = DataModel()
+    @State var viewModel = ViewModel()
     
     var body: some View {
         TabView {
             Tab("Content", systemImage: "video") {
-                ContentView(dataModel: dataModel)
+                ContentView(viewModel: viewModel)
             }
             Tab("Channel", systemImage: "person.fill") {
-                ChannelView(dataModel: dataModel)
+                ChannelView(viewModel: viewModel)
             }
         }
     }

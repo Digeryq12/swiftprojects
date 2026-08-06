@@ -8,23 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var dataModel: DataModel
+    @State var viewModel: ViewModel
     
     var body: some View {
         NavigationStack {
-            List(dataModel.searchResult.items, id: \.id["videoId"]) { video in
+            List(viewModel.searchResult.items, id: \.id["videoId"]) { video in
                 Button {
-                    dataModel.currentVideo = video
+                    viewModel.currentVideo = video
                 } label: {
                     VideoListItem(video: video)
                 }
                 
             }.navigationTitle("📹 Content")
-            .sheet(item: $dataModel.currentVideo) { video in
+            .sheet(item: $viewModel.currentVideo) { video in
              SafariView(url: URL(string: "https://youtube.com/watch?v=\(video.id["videoId"] ?? "")") ?? URL(string: "https://youtube.com")!)
              }
             
-            ResultsStack(pageInfo: dataModel.searchResult.pageInfo)
+            ResultsStack(pageInfo: viewModel.searchResult.pageInfo)
         }
     }
 }
@@ -76,5 +76,5 @@ struct ResultsStack: View {
 }
 
 #Preview {
-    ContentView(dataModel: DataModel())
+    ContentView(viewModel: ViewModel())
 }
